@@ -1,88 +1,125 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/white.css">
+	<title>reveal.js</title>
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/white.css">
 
-		<!-- Printing and PDF exports -->
-		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section><img src="./assets/elm_logo.svg" style="height:400px; width:400px"/><br/>ELM</section>
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section><img src="./assets/elm_logo.svg" style="height:400px; width:400px" /><br/>ELM</section>
+			<section>
+				<section>Why Elm?</section>
 				<section>
-					<section>What is Elm?</section>
-					<section><p>Functional</p><p>Immutability</p><p>no null</><p>no undefined</p></section>
-					<section>Little to no runtime exceptions.<aside class="notes">There are companies (NoRedInk) that are running 40,000+ lines of Elm code without a single runtime exception.</aside></section>
-					<section>Speed<br/><img src="./assets/speedcomparison.png"/>
-						<aside class="notes">Immutability.  Inspired React/Redux</aside>
-					</section>
-					<section>Enforced Semantic Versioning<br/><img src="./assets/elmdiff.png" style="width:60%"/><aside class="notes">Major changes force a major version number bump.  Users can diff versions to see changes.</aside></section>
-					<section>Helpful Error Messages<br/><img src="./assets/errormessages.png" style="width:80%"/></section>
-					<section>Well-Architected code that stays well-architected as the application grows.</section>
+					<p>Functional</p>
+					<p>Immutability</p>
+					<p>Statically Typed</p>
+					<aside class="notes">Pure, controlled side effects, values cannot change, new values are created. Helps in debugging, can replay entire history. Everything has a type and that type cannot change. No any type.</aside>
 				</section>
+				<section>Little to no runtime exceptions.
+					<aside class="notes">There are companies (NoRedInk) that are running 40,000+ lines of Elm code without a single runtime exception. No such thing is null/undefined, immutability, and pure functions without side effects contribute to this.</aside>
+				</section>
+				<section>Speed<br/><img src="./assets/speedcomparison.png" />
+					<aside class="notes">Immutability. Inspired React/Redux</aside>
+				</section>
+				<section>Enforced Semantic Versioning<br/><img src="./assets/elmdiff.png" style="width:60%" />
+					<aside class="notes">Major changes force a major version number bump. Users can diff versions to see changes.</aside>
+				</section>
+				<section>Helpful Error Messages<br/><img src="./assets/errormessages.png" style="width:80%" /></section>
+				<section>Well-Architected code that stays well-architected as the application grows.</section>
+			</section>
+			<section>
+				<section>The Elm Platform</section>
 				<section>
-					<section>The Elm Platform</section>
-					<section>
-						<p>elm-repl</p>
-						<p>elm-reactor</p>
-						<p>elm-make</p>
-						<p>elm-package</p>
-					</section>
+					<p>elm-repl</p>
+					<p>elm-reactor</p>
+					<p>elm-make</p>
+					<p>elm-package</p>
 				</section>
+			</section>
+			<section>
+				<section>Syntax</section>
+				<section><img src="./assets/syntaxcomments.png" /></section>
+				<section><img src="./assets/syntaxliterals.png" /></section>
+				<section><img src="./assets/syntaxconditionals.png" /></section>
+				<section><img src="./assets/syntaxconditionals2.png" /></section>
+				<section><img src="./assets/syntaxlists.png" /></section>
+				<section><img src="./assets/syntaxletexpressions.png" /></section>
+				<section><img src="./assets/syntaxtypealiases.png" /></section>
+				<section><img src="./assets/syntaxmodules.png" /></section>
 				<section>
-					<section>Syntax</section>
-					<section><img src="./assets/syntaxcomments.png"/></section>
-					<section><img src="./assets/syntaxliterals.png"/></section>
-					<section><img src="./assets/syntaxconditionals.png"/></section>
-					<section><img src="./assets/syntaxlists.png"/></section>
-					<section><img src="./assets/syntaxletexpressions.png"/></section>
-					<section><img src="./assets/syntaxtypealiases.png"/></section>
-					<section><img src="./assets/syntaxmodules.png"/></section>
+					<!--<img src="./assets/syntaxarithmatic.png" style="height:690px"/>-->
+					<h2>Arithmatic</h2>
+					<p class="fragment">20 + 5 = 25 : number</p>
+					<p class="fragment">20 + 5.0 = 25 : Float</p>
+					<p class="fragment">5 * 6 = 30 : number</p>
+					<p class="fragment">5 * 6.0 = 30 : Float</p>
+					<p class="fragment">100 / 2 = 50 : Float</p>
+					<p class="fragment">100 // 2 = 50 : Int</p>
+					<p class="fragment">1 / 2 = 0.5 : Float</p>
+					<p class="fragment">1 // 2 = 0 : Int</p>
 				</section>
+				<section><img src="./assets/syntaxfunctions2.png" /></section>
+				<section><img src="./assets/syntaxfunctions3.png" /></section>
+				<section><img src="./assets/syntaxfunctions4.png" /></section>
+			</section>
+			<section>
+				<section>The Elm Architecture<br><img src="./assets/elm_logo.svg" style="height:200px; width:200px" /></section>
 				<section>
-					<section>The Elm Architecture<br><img src="./assets/elm_logo.svg" style="height:200px; width:200px"/></section>
-					<section>
-						<p>init : (model, Cmd msg)</p>
-						<p>update : msg -> model -> (model, Cmd msg)</p>
-						<p>subscriptions : model -> Sub msg</p>
-						<p>view : model -> Html msg</p>
-					</section>
+					<p>init : (model, Cmd msg)</p>
+					<p>update : msg -> model -> (model, Cmd msg)</p>
+					<p>subscriptions : model -> Sub msg</p>
+					<p>view : model -> Html msg</p>
 				</section>
-			</div>
+			</section>
 		</div>
+	</div>
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.js"></script>
+	<script src="lib/js/head.min.js"></script>
+	<script src="js/reveal.js"></script>
 
-		<script>
-			// More info https://github.com/hakimel/reveal.js#configuration
-			Reveal.initialize({
-				history: true,
+	<script>
+		// More info https://github.com/hakimel/reveal.js#configuration
+		Reveal.initialize({
+			history: true,
+			slideNumber: true,
 
-				// More info https://github.com/hakimel/reveal.js#dependencies
-				dependencies: [
-					{ src: 'plugin/markdown/marked.js' },
-					{ src: 'plugin/markdown/markdown.js' },
-					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
-				]
-			});
-		</script>
-	</body>
+			// More info https://github.com/hakimel/reveal.js#dependencies
+			dependencies: [{
+				src: 'plugin/markdown/marked.js'
+			}, {
+				src: 'plugin/markdown/markdown.js'
+			}, {
+				src: 'plugin/notes/notes.js',
+				async: true
+			}, {
+				src: 'plugin/highlight/highlight.js',
+				async: true,
+				callback: function() {
+					hljs.initHighlightingOnLoad();
+				}
+			}]
+		});
+	</script>
+</body>
+
 </html>
