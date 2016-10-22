@@ -89,7 +89,7 @@ update msg model =
       let
         newPos = GMPos newISSPos.iss_position.latitude newISSPos.iss_position.longitude
       in
-        ({model | pos = newPos }, Cmd.none)
+        ({model | pos = newPos }, moveMap newPos)
     FetchFail _ ->
       (model, Cmd.none)
     FetchPosition time ->

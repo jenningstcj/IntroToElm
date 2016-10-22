@@ -28,6 +28,7 @@
             console.log("received", gmPos);
             var myLatlng = new google.maps.LatLng(gmPos);
             gmap.setCenter(myLatlng);
+            marker.setPosition(myLatlng);
         });
         var myLatlng = new google.maps.LatLng(0, 0);
         var mapOptions = {
@@ -35,6 +36,11 @@
           center: myLatlng
         };
         var gmap = new google.maps.Map(mapDiv, mapOptions);
+        var marker = new google.maps.Marker({
+                    position: myLatlng,
+                    map: gmap,
+                    title: 'ISS'
+                });
         gmap.addListener('drag', function() {
           var newPos = {
             lat: gmap.getCenter().lat(),
