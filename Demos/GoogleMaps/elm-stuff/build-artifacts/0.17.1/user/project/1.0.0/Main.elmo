@@ -1,0 +1,203 @@
+var _user$project$Main$Model = function (a) {
+	return {pos: a};
+};
+var _user$project$Main$init = function () {
+	var vienna = A2(_user$project$SharedModels$GMPos, 48.2206636, 16.3100206);
+	return {
+		ctor: '_Tuple2',
+		_0: _user$project$Main$Model(vienna),
+		_1: _user$project$GMaps$moveMap(vienna)
+	};
+}();
+var _user$project$Main$ISS_Lat_Long = F2(
+	function (a, b) {
+		return {latitude: a, longitude: b};
+	});
+var _user$project$Main$decodeLatLong = A3(
+	_elm_lang$core$Json_Decode$object2,
+	_user$project$Main$ISS_Lat_Long,
+	A2(_elm_lang$core$Json_Decode_ops[':='], 'latitude', _elm_lang$core$Json_Decode$float),
+	A2(_elm_lang$core$Json_Decode_ops[':='], 'longitude', _elm_lang$core$Json_Decode$float));
+var _user$project$Main$ISS_JSON = F3(
+	function (a, b, c) {
+		return {iss_position: a, message: b, timestamp: c};
+	});
+var _user$project$Main$decodeISSPosition = A4(
+	_elm_lang$core$Json_Decode$object3,
+	_user$project$Main$ISS_JSON,
+	A2(_elm_lang$core$Json_Decode_ops[':='], 'iss_position', _user$project$Main$decodeLatLong),
+	A2(_elm_lang$core$Json_Decode_ops[':='], 'message', _elm_lang$core$Json_Decode$string),
+	A2(_elm_lang$core$Json_Decode_ops[':='], 'timestamp', _elm_lang$core$Json_Decode$int));
+var _user$project$Main$FetchPosition = function (a) {
+	return {ctor: 'FetchPosition', _0: a};
+};
+var _user$project$Main$FetchFail = function (a) {
+	return {ctor: 'FetchFail', _0: a};
+};
+var _user$project$Main$FetchSucceed = function (a) {
+	return {ctor: 'FetchSucceed', _0: a};
+};
+var _user$project$Main$getLocation = function () {
+	var url = 'http://api.open-notify.org/iss-now.json';
+	return A3(
+		_elm_lang$core$Task$perform,
+		_user$project$Main$FetchFail,
+		_user$project$Main$FetchSucceed,
+		A2(_evancz$elm_http$Http$get, _user$project$Main$decodeISSPosition, url));
+}();
+var _user$project$Main$update = F2(
+	function (msg, model) {
+		var _p0 = msg;
+		switch (_p0.ctor) {
+			case 'North':
+				var newPos = A2(_user$project$SharedModels$GMPos, model.pos.lat + 1, model.pos.lng);
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{pos: newPos}),
+					_1: _user$project$GMaps$moveMap(newPos)
+				};
+			case 'South':
+				var newPos = A2(_user$project$SharedModels$GMPos, model.pos.lat - 1, model.pos.lng);
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{pos: newPos}),
+					_1: _user$project$GMaps$moveMap(newPos)
+				};
+			case 'West':
+				var newPos = A2(_user$project$SharedModels$GMPos, model.pos.lat, model.pos.lng - 1);
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{pos: newPos}),
+					_1: _user$project$GMaps$moveMap(newPos)
+				};
+			case 'East':
+				var newPos = A2(_user$project$SharedModels$GMPos, model.pos.lat, model.pos.lng + 1);
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{pos: newPos}),
+					_1: _user$project$GMaps$moveMap(newPos)
+				};
+			case 'MapMoved':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{pos: _p0._0}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'FetchSucceed':
+				var _p1 = _p0._0;
+				var newPos = A2(_user$project$SharedModels$GMPos, _p1.iss_position.latitude, _p1.iss_position.longitude);
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{pos: newPos}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'FetchFail':
+				return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+			default:
+				return {ctor: '_Tuple2', _0: model, _1: _user$project$Main$getLocation};
+		}
+	});
+var _user$project$Main$MapMoved = function (a) {
+	return {ctor: 'MapMoved', _0: a};
+};
+var _user$project$Main$subscriptions = function (model) {
+	return _elm_lang$core$Platform_Sub$batch(
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_user$project$GMaps$mapMoved(_user$project$Main$MapMoved),
+				A2(_elm_lang$core$Time$every, 5 * _elm_lang$core$Time$second, _user$project$Main$FetchPosition)
+			]));
+};
+var _user$project$Main$East = {ctor: 'East'};
+var _user$project$Main$West = {ctor: 'West'};
+var _user$project$Main$South = {ctor: 'South'};
+var _user$project$Main$North = {ctor: 'North'};
+var _user$project$Main$view = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(
+				_elm_lang$html$Html$p,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text(
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							'Latitude: ',
+							_elm_lang$core$Basics$toString(model.pos.lat)))
+					])),
+				A2(
+				_elm_lang$html$Html$p,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text(
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							'Longitude: ',
+							_elm_lang$core$Basics$toString(model.pos.lng)))
+					])),
+				A2(
+				_elm_lang$html$Html$button,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Events$onClick(_user$project$Main$North)
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text('North')
+					])),
+				A2(
+				_elm_lang$html$Html$button,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Events$onClick(_user$project$Main$South)
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text('South')
+					])),
+				A2(
+				_elm_lang$html$Html$button,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Events$onClick(_user$project$Main$West)
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text('West')
+					])),
+				A2(
+				_elm_lang$html$Html$button,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Events$onClick(_user$project$Main$East)
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text('East')
+					]))
+			]));
+};
+var _user$project$Main$main = {
+	main: _elm_lang$html$Html_App$program(
+		{init: _user$project$Main$init, view: _user$project$Main$view, update: _user$project$Main$update, subscriptions: _user$project$Main$subscriptions})
+};
