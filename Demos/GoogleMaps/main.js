@@ -8377,15 +8377,73 @@ var _user$project$GMaps$mapMoved = _elm_lang$core$Native_Platform.incomingPort(
 				});
 		}));
 
-var _user$project$Main$Model = function (a) {
-	return {pos: a};
+var _user$project$Main$view = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(
+				_elm_lang$html$Html$p,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text(
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							'Latitude: ',
+							_elm_lang$core$Basics$toString(model.pos.lat)))
+					])),
+				A2(
+				_elm_lang$html$Html$p,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text(
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							'Longitude: ',
+							_elm_lang$core$Basics$toString(model.pos.lng)))
+					])),
+				A2(
+				_elm_lang$html$Html$p,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text(
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							'Altitude: ',
+							_elm_lang$core$Basics$toString(model.alt)))
+					])),
+				A2(
+				_elm_lang$html$Html$p,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text(
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							'Velocity: ',
+							_elm_lang$core$Basics$toString(model.vel)))
+					]))
+			]));
 };
+var _user$project$Main$Model = F3(
+	function (a, b, c) {
+		return {pos: a, alt: b, vel: c};
+	});
 var _user$project$Main$init = function () {
-	var vienna = A2(_user$project$SharedModels$GMPos, 48.2206636, 16.3100206);
+	var knoxville = A2(_user$project$SharedModels$GMPos, 35.9335673, -84.016913);
 	return {
 		ctor: '_Tuple2',
-		_0: _user$project$Main$Model(vienna),
-		_1: _user$project$GMaps$moveMap(vienna)
+		_0: A3(_user$project$Main$Model, knoxville, 0, 0),
+		_1: _user$project$GMaps$moveMap(knoxville)
 	};
 }();
 var _user$project$Main$ISS_JSON = F4(
@@ -8420,42 +8478,6 @@ var _user$project$Main$update = F2(
 	function (msg, model) {
 		var _p0 = msg;
 		switch (_p0.ctor) {
-			case 'North':
-				var newPos = A2(_user$project$SharedModels$GMPos, model.pos.lat + 1, model.pos.lng);
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{pos: newPos}),
-					_1: _user$project$GMaps$moveMap(newPos)
-				};
-			case 'South':
-				var newPos = A2(_user$project$SharedModels$GMPos, model.pos.lat - 1, model.pos.lng);
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{pos: newPos}),
-					_1: _user$project$GMaps$moveMap(newPos)
-				};
-			case 'West':
-				var newPos = A2(_user$project$SharedModels$GMPos, model.pos.lat, model.pos.lng - 1);
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{pos: newPos}),
-					_1: _user$project$GMaps$moveMap(newPos)
-				};
-			case 'East':
-				var newPos = A2(_user$project$SharedModels$GMPos, model.pos.lat, model.pos.lng + 1);
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{pos: newPos}),
-					_1: _user$project$GMaps$moveMap(newPos)
-				};
 			case 'MapMoved':
 				return {
 					ctor: '_Tuple2',
@@ -8471,7 +8493,7 @@ var _user$project$Main$update = F2(
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
-						{pos: newPos}),
+						{pos: newPos, vel: _p1.velocity, alt: _p1.altitude}),
 					_1: _user$project$GMaps$moveMap(newPos)
 				};
 			case 'FetchFail':
@@ -8489,83 +8511,6 @@ var _user$project$Main$subscriptions = function (model) {
 			[
 				_user$project$GMaps$mapMoved(_user$project$Main$MapMoved),
 				A2(_elm_lang$core$Time$every, 5 * _elm_lang$core$Time$second, _user$project$Main$FetchPosition)
-			]));
-};
-var _user$project$Main$East = {ctor: 'East'};
-var _user$project$Main$West = {ctor: 'West'};
-var _user$project$Main$South = {ctor: 'South'};
-var _user$project$Main$North = {ctor: 'North'};
-var _user$project$Main$view = function (model) {
-	return A2(
-		_elm_lang$html$Html$div,
-		_elm_lang$core$Native_List.fromArray(
-			[]),
-		_elm_lang$core$Native_List.fromArray(
-			[
-				A2(
-				_elm_lang$html$Html$p,
-				_elm_lang$core$Native_List.fromArray(
-					[]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html$text(
-						A2(
-							_elm_lang$core$Basics_ops['++'],
-							'Latitude: ',
-							_elm_lang$core$Basics$toString(model.pos.lat)))
-					])),
-				A2(
-				_elm_lang$html$Html$p,
-				_elm_lang$core$Native_List.fromArray(
-					[]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html$text(
-						A2(
-							_elm_lang$core$Basics_ops['++'],
-							'Longitude: ',
-							_elm_lang$core$Basics$toString(model.pos.lng)))
-					])),
-				A2(
-				_elm_lang$html$Html$button,
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html_Events$onClick(_user$project$Main$North)
-					]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html$text('North')
-					])),
-				A2(
-				_elm_lang$html$Html$button,
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html_Events$onClick(_user$project$Main$South)
-					]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html$text('South')
-					])),
-				A2(
-				_elm_lang$html$Html$button,
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html_Events$onClick(_user$project$Main$West)
-					]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html$text('West')
-					])),
-				A2(
-				_elm_lang$html$Html$button,
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html_Events$onClick(_user$project$Main$East)
-					]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html$text('East')
-					]))
 			]));
 };
 var _user$project$Main$main = {
