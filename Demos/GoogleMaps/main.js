@@ -8377,6 +8377,9 @@ var _user$project$GMaps$mapMoved = _elm_lang$core$Native_Platform.incomingPort(
 				});
 		}));
 
+var _user$project$Main$kilometersToMiles = function (km) {
+	return km * 0.62137;
+};
 var _user$project$Main$view = function (model) {
 	return A2(
 		_elm_lang$html$Html$div,
@@ -8418,7 +8421,10 @@ var _user$project$Main$view = function (model) {
 						A2(
 							_elm_lang$core$Basics_ops['++'],
 							'Altitude: ',
-							_elm_lang$core$Basics$toString(model.alt)))
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								_elm_lang$core$Basics$toString(model.alt),
+								' miles')))
 					])),
 				A2(
 				_elm_lang$html$Html$p,
@@ -8430,7 +8436,10 @@ var _user$project$Main$view = function (model) {
 						A2(
 							_elm_lang$core$Basics_ops['++'],
 							'Velocity: ',
-							_elm_lang$core$Basics$toString(model.vel)))
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								_elm_lang$core$Basics$toString(model.vel),
+								' miles per hour')))
 					]))
 			]));
 };
@@ -8493,7 +8502,11 @@ var _user$project$Main$update = F2(
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
-						{pos: newPos, vel: _p1.velocity, alt: _p1.altitude}),
+						{
+							pos: newPos,
+							vel: _user$project$Main$kilometersToMiles(_p1.velocity),
+							alt: _user$project$Main$kilometersToMiles(_p1.altitude)
+						}),
 					_1: _user$project$GMaps$moveMap(newPos)
 				};
 			case 'FetchFail':

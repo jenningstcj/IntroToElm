@@ -35,13 +35,6 @@ type alias ISS_JSON =
     , longitude : Float
     , altitude : Float
     , velocity : Float
-    {--, visibility: String
-    , footprint: Float
-    , timestamp: Int
-    , daynum: Float
-    , solar_lat: Float
-    , solar_lon: Float
-    , units: String--}
     }
 
 -- UPDATE
@@ -63,7 +56,7 @@ update msg model =
       let
         newPos = GMPos newISSPos.latitude newISSPos.longitude
       in
-        ({model | pos = newPos, vel = newISSPos.velocity, alt = newISSPos.altitude }, moveMap newPos)
+        ({model | pos = newPos, vel = (kilometersToMiles newISSPos.velocity), alt = (kilometersToMiles newISSPos.altitude) }, moveMap newPos)
     FetchFail _ ->
       (model, Cmd.none)
     FetchPosition time ->
@@ -76,8 +69,8 @@ view model =
   div []
     [ p [] [ text ("Latitude: " ++ toString model.pos.lat)]
     , p [] [text ("Longitude: " ++ toString model.pos.lng)]
-    , p [] [text ("Altitude: " ++ toString model.alt)]
-    , p [] [text ("Velocity: " ++ toString model.vel)]
+    , p [] [text ("Altitude: " ++ toString model.alt ++ " miles")]
+    , p [] [text ("Velocity: " ++ toString model.vel ++ " miles per hour")]
     ]
 
 
@@ -108,6 +101,11 @@ decodeISSPosition =
     ("longitude" := float)
     ("altitude" := float)
     ("velocity" := float)
+
+
+kilometersToMiles : Float -> Float
+kilometersToMiles km =
+  km * 0.62137
 
 
 
