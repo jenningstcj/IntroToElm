@@ -38,7 +38,7 @@ var _user$project$Main$FetchSucceed = function (a) {
 	return {ctor: 'FetchSucceed', _0: a};
 };
 var _user$project$Main$getLocation = function () {
-	var url = 'http://api.open-notify.org/iss-now.json';
+	var url = 'http://api.open-notify.org/iss-now.json?callback=CALLBACK';
 	return A3(
 		_elm_lang$core$Task$perform,
 		_user$project$Main$FetchFail,

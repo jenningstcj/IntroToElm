@@ -124,7 +124,7 @@ subscriptions model =
 getLocation : Cmd Msg
 getLocation =
   let
-    url = "http://api.open-notify.org/iss-now.json"
+    url = "http://api.open-notify.org/iss-now.json?callback=CALLBACK"
   in
     Task.perform FetchFail FetchSucceed (Http.get decodeISSPosition url)
 
