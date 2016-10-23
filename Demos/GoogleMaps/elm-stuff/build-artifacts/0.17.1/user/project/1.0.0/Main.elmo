@@ -9,25 +9,17 @@ var _user$project$Main$init = function () {
 		_1: _user$project$GMaps$moveMap(vienna)
 	};
 }();
-var _user$project$Main$ISS_Lat_Long = F2(
-	function (a, b) {
-		return {latitude: a, longitude: b};
+var _user$project$Main$ISS_JSON = F4(
+	function (a, b, c, d) {
+		return {latitude: a, longitude: b, altitude: c, velocity: d};
 	});
-var _user$project$Main$decodeLatLong = A3(
-	_elm_lang$core$Json_Decode$object2,
-	_user$project$Main$ISS_Lat_Long,
-	A2(_elm_lang$core$Json_Decode_ops[':='], 'latitude', _elm_lang$core$Json_Decode$float),
-	A2(_elm_lang$core$Json_Decode_ops[':='], 'longitude', _elm_lang$core$Json_Decode$float));
-var _user$project$Main$ISS_JSON = F3(
-	function (a, b, c) {
-		return {iss_position: a, message: b, timestamp: c};
-	});
-var _user$project$Main$decodeISSPosition = A4(
-	_elm_lang$core$Json_Decode$object3,
+var _user$project$Main$decodeISSPosition = A5(
+	_elm_lang$core$Json_Decode$object4,
 	_user$project$Main$ISS_JSON,
-	A2(_elm_lang$core$Json_Decode_ops[':='], 'iss_position', _user$project$Main$decodeLatLong),
-	A2(_elm_lang$core$Json_Decode_ops[':='], 'message', _elm_lang$core$Json_Decode$string),
-	A2(_elm_lang$core$Json_Decode_ops[':='], 'timestamp', _elm_lang$core$Json_Decode$int));
+	A2(_elm_lang$core$Json_Decode_ops[':='], 'latitude', _elm_lang$core$Json_Decode$float),
+	A2(_elm_lang$core$Json_Decode_ops[':='], 'longitude', _elm_lang$core$Json_Decode$float),
+	A2(_elm_lang$core$Json_Decode_ops[':='], 'altitude', _elm_lang$core$Json_Decode$float),
+	A2(_elm_lang$core$Json_Decode_ops[':='], 'velocity', _elm_lang$core$Json_Decode$float));
 var _user$project$Main$FetchPosition = function (a) {
 	return {ctor: 'FetchPosition', _0: a};
 };
@@ -38,7 +30,7 @@ var _user$project$Main$FetchSucceed = function (a) {
 	return {ctor: 'FetchSucceed', _0: a};
 };
 var _user$project$Main$getLocation = function () {
-	var url = 'http://api.open-notify.org/iss-now.json?callback=CALLBACK';
+	var url = 'https://api.wheretheiss.at/v1/satellites/25544';
 	return A3(
 		_elm_lang$core$Task$perform,
 		_user$project$Main$FetchFail,
@@ -95,7 +87,7 @@ var _user$project$Main$update = F2(
 				};
 			case 'FetchSucceed':
 				var _p1 = _p0._0;
-				var newPos = A2(_user$project$SharedModels$GMPos, _p1.iss_position.latitude, _p1.iss_position.longitude);
+				var newPos = A2(_user$project$SharedModels$GMPos, _p1.latitude, _p1.longitude);
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(

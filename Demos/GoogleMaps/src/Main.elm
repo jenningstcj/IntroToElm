@@ -27,16 +27,20 @@ type alias Model =
   { pos : GMPos
   }
 
-type alias ISS_Lat_Long =
-  { latitude: Float
-  , longitude: Float
-  }
 
 type alias ISS_JSON =
-  { iss_position: ISS_Lat_Long
-  , message: String
-  , timestamp: Int
-  }
+    { latitude : Float
+    , longitude : Float
+    , altitude : Float
+    , velocity : Float
+    {--, visibility: String
+    , footprint: Float
+    , timestamp: Int
+    , daynum: Float
+    , solar_lat: Float
+    , solar_lon: Float
+    , units: String--}
+    }
 
 -- UPDATE
 
@@ -87,7 +91,7 @@ update msg model =
       )
     FetchSucceed newISSPos ->
       let
-        newPos = GMPos newISSPos.iss_position.latitude newISSPos.iss_position.longitude
+        newPos = GMPos newISSPos.latitude newISSPos.longitude
       in
         ({model | pos = newPos }, moveMap newPos)
     FetchFail _ ->
@@ -124,23 +128,20 @@ subscriptions model =
 getLocation : Cmd Msg
 getLocation =
   let
-    url = "http://api.open-notify.org/iss-now.json?callback=CALLBACK"
+    url = "https://api.wheretheiss.at/v1/satellites/25544"
   in
     Task.perform FetchFail FetchSucceed (Http.get decodeISSPosition url)
-
-decodeLatLong : Decoder ISS_Lat_Long
-decodeLatLong =
-  object2 ISS_Lat_Long
-    ("latitude" := float)
-    ("longitude" := float)
 
 
 decodeISSPosition : Decoder ISS_JSON
 decodeISSPosition =
-  object3 ISS_JSON
-    ("iss_position" := decodeLatLong)
-    ("message" := string)
-    ("timestamp" := int)
+  object4 ISS_JSON
+    ("latitude" := float)
+    ("longitude" := float)
+    ("altitude" := float)
+    ("velocity" := float)
+
+
 
 -- INIT
 
