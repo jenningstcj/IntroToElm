@@ -30,8 +30,8 @@ main =
 
 type alias Model =
     { pos : GMPos
-    , alt : Float
-    , vel : Float
+    , alt : Int
+    , vel : Int
     }
 
 
@@ -141,6 +141,8 @@ decodeISSPosition =
         ("velocity" := float)
 
 
-kilometersToMiles : Float -> Float
+kilometersToMiles : Float -> Int
 kilometersToMiles km =
-    km * 0.62137
+    km
+        * 0.62137
+        |> round

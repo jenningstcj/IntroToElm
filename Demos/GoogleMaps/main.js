@@ -8378,7 +8378,7 @@ var _user$project$GMaps$mapMoved = _elm_lang$core$Native_Platform.incomingPort(
 		}));
 
 var _user$project$Main$kilometersToMiles = function (km) {
-	return km * 0.62137;
+	return _elm_lang$core$Basics$round(km * 0.62137);
 };
 var _user$project$Main$view = function (model) {
 	return A2(
