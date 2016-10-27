@@ -19,16 +19,12 @@
 
     <script src="main.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js"></script>
+
     <script type="text/javascript">
-        var div = document.getElementById('elm');
+        var elmDiv = document.getElementById('elm');
         var mapDiv = document.getElementById('map');
-        var map = Elm.Main.embed(div);
-        map.ports.moveMap.subscribe(function(gmPos) {
-            console.log("received", gmPos);
-            var myLatlng = new google.maps.LatLng(gmPos);
-            gmap.setCenter(myLatlng);
-            marker.setPosition(myLatlng);
-        });
+        var instance = Elm.Main.embed(elmDiv);
+
         var myLatlng = new google.maps.LatLng(0, 0);
         var mapOptions = {
           zoom: 4,
@@ -40,12 +36,20 @@
                     map: gmap,
                     title: 'ISS'
                 });
+
+        instance.ports.moveMap.subscribe(function(gmPos) {
+            console.log("received", gmPos);
+            var myLatlng = new google.maps.LatLng(gmPos);
+            gmap.setCenter(myLatlng);
+            marker.setPosition(myLatlng);
+        });
+
         gmap.addListener('drag', function() {
           var newPos = {
             lat: gmap.getCenter().lat(),
             lng: gmap.getCenter().lng()
           };
-          map.ports.mapMoved.send(newPos);
+          instance.ports.mapMoved.send(newPos);
         });
     </script>
   </body>
