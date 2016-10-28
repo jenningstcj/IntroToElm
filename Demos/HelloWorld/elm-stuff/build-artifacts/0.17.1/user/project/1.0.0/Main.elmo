@@ -1,3 +1,17 @@
+var _user$project$Main$size = function (num) {
+	return _elm_lang$html$Html_Attributes$style(
+		_elm_lang$core$Native_List.fromArray(
+			[
+				{
+				ctor: '_Tuple2',
+				_0: 'fontSize',
+				_1: A2(
+					_elm_lang$core$Basics_ops['++'],
+					_elm_lang$core$Basics$toString(num),
+					'pt')
+			}
+			]));
+};
 var _user$project$Main$view = function (model) {
 	return A2(
 		_elm_lang$html$Html$div,
@@ -6,21 +20,10 @@ var _user$project$Main$view = function (model) {
 		_elm_lang$core$Native_List.fromArray(
 			[
 				A2(
-				_elm_lang$html$Html$span,
+				_elm_lang$html$Html$p,
 				_elm_lang$core$Native_List.fromArray(
 					[
-						_elm_lang$html$Html_Attributes$style(
-						_elm_lang$core$Native_List.fromArray(
-							[
-								{
-								ctor: '_Tuple2',
-								_0: 'fontSize',
-								_1: A2(
-									_elm_lang$core$Basics_ops['++'],
-									_elm_lang$core$Basics$toString(model.size),
-									'pt')
-							}
-							]))
+						_user$project$Main$size(model.size)
 					]),
 				_elm_lang$core$Native_List.fromArray(
 					[

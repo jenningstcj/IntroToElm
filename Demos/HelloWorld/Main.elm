@@ -18,9 +18,14 @@ update msg model =
     case msg of
         _ ->
             model
---}
 
 
 view model =
     div []
-        [ span [ style [ ( "fontSize", (toString model.size) ++ "pt" ) ] ] [ text model.statement ] ]
+        [ p [ size model.size ] [ text model.statement ]
+        ]
+
+
+size : Int -> Html.Attribute msg
+size num =
+    style [ ( "fontSize", (toString num) ++ "pt" ) ]

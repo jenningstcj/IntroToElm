@@ -84,7 +84,13 @@ update msg model =
                 altitude =
                     kilometersToMiles newISSPos.altitude
             in
-                ( { model | pos = newPos, vel = velocity, alt = altitude }, moveMap newPos )
+                ( { model
+                    | pos = newPos
+                    , vel = velocity
+                    , alt = altitude
+                  }
+                , moveMap newPos
+                )
 
         FetchFail _ ->
             ( model, Cmd.none )
@@ -129,7 +135,8 @@ getLocation =
         url =
             "https://api.wheretheiss.at/v1/satellites/25544"
     in
-        Task.perform FetchFail FetchSucceed (Http.get decodeISSPosition url)
+        (Http.get decodeISSPosition url)
+            |> Task.perform FetchFail FetchSucceed
 
 
 decodeISSPosition : Decoder ISS_JSON
