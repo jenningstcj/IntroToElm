@@ -15,9 +15,7 @@ main =
 
 
 update msg model =
-    case msg of
-        _ ->
-            model
+    model
 
 
 view model =
