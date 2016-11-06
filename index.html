@@ -21,14 +21,27 @@
 		link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
 		document.getElementsByTagName('head')[0].appendChild(link);
 	</script>
+	<style>
+		code {
+			font-size: 28pt !important;
+			line-height: 1 !important;
+			max-height: initial !important;
+		}
+
+		pre {
+			width: 100% !important;
+		}
+	</style>
 </head>
 
 <body>
 	<div class="reveal">
 		<div class="slides">
-			<section><img src="./assets/elm_logo.svg" style="height:400px; width:400px" /><h2>ELM</h2></section>
+			<section><img src="./assets/elm_logo.svg" style="height:400px; width:400px" />
+				<h2>ELM</h2></section>
 			<section>
-				<section><h2>Why Elm?</h2></section>
+				<section>
+					<h2>Why Elm?</h2></section>
 				<section>
 					<p>Purity</p>
 					<p>Immutability</p>
@@ -49,7 +62,8 @@
 				<section>Well-Architected code that stays well-architected as the application grows.</section>
 			</section>
 			<section>
-				<section><h2>The Elm Platform</h2></section>
+				<section>
+					<h2>The Elm Platform</h2></section>
 				<section>
 					<p>elm-repl</p>
 					<p>elm-reactor</p>
@@ -59,70 +73,245 @@
 				</section>
 			</section>
 			<section>
-				<section><h2>Syntax</h2></section>
-				<section><img src="./assets/syntaxcomments.png" /></section>
-				<section><img src="./assets/syntaxliterals.png" /></section>
-				<section><img src="./assets/syntaxconditionals.png" /></section>
-				<section><img src="./assets/syntaxconditionals2.png" /></section>
-				<section><img src="./assets/syntaxlists.png" /></section>
-				<section><img src="./assets/syntaxletexpressions.png" /></section>
-				<section><img src="./assets/syntaxRecords.png" /></section>
-				<section><img src="./assets/syntaxtypealiases.png" /></section>
-				<section><img src="./assets/syntaxmodules.png" /></section>
-				<section><img src="./assets/syntaxPorts.png" /></section>
-				<section>Elm-Repl Demo</section>
-				<!--<section><img src="./assets/syntaxarithmatic.png" style="height:690px"/></section>-->
-				<!--<section>
+				<section>
+					<h2>Syntax</h2></section>
+				<section>
+					Comments
+					<!--<img src="./assets/syntaxcomments.png" />-->
+					<pre><code class="Elm" data-trim data-noescape>
+-- single line comment
 
-					<h2>Arithmatic Gotcha's</h2>
-					<p>20 + 5 = 25 : number</p>
-					<p>20 + 5.0 = 25 : Float</p>
-					<p>100 / 2 = 50 : Float</p>
-					<p>100 // 2 = 50 : Int</p>
-					<p>1 / 2 = 0.5 : Float</p>
-					<p>1 // 2 = 0 : Int</p>
-					<p>5 `rem` 2 = 1: number</p>
-				</section>
-				<section><img src="./assets/syntaxfunctions2.png" /></section>-->
-				<!--<section><img src="./assets/syntaxfunctions3.png" /></section>-->
-				<!--<section><img src="./assets/syntaxfunctions4.png" /></section>-->
-			</section>
-			<section>
-				<section><h2>The Elm Architecture</h2><img src="./assets/elm_logo.svg" style="height:200px; width:200px" /></section>
-				<section>
-					<h2>Html.App.beginnerProgram</h2>
-					<br/>
-					<p>model : model</p>
-					<p>view : model -> Html msg</p>
-					<p>update : msg -> model -> model</p>
-				</section>
-				<section>
-					<h2>Html.App.Program</h2>
-					<br/>
-					<p>init : (model, Cmd msg)</p>
-					<p>update : msg -> model -> (model, Cmd msg)</p>
-					<p>subscriptions : model -> Sub msg</p>
-					<p>view : model -> Html msg</p>
-				</section>
-				<section>
-					<h2>Demos</h2>
-				</section>
-			</section>
-			<section>
-				<h2>Links</h2>
-				<ul>
-					<li><a href="http://elm-lang.org/" target="_blank">http://elm-lang.org/</a></li>
-					<li><a href="http://elm-lang.org/community" target="_blank">http://elm-lang.org/community</a></li>
-					<li><a href="http://www.elmweekly.nl/" target="_blank">http://www.elmweekly.nl/</a></li>
-					<li><a href="https://www.brianthicks.com/" target="_blank">https://www.brianthicks.com/</a></li>
-					<li><a href="https://www.elm-tutorial.org/en/" target="_blank">https://www.elm-tutorial.org/en/</a></li>
-					<li><a href="https://github.com/sporto/hop" target="_blank">https://github.com/sporto/hop</a></li>
+{- multiline comments
+  {- and can be nested -}
+-}
 
-					<br/>
-					<p>@JenningsTCJ</p>
-					<p>Slides: <a href="https://github.com/jenningstcj/IntroToElm" target="_blank">https://github.com/jenningstcj/IntroToElm</a></p>
-				</ul>
-</section>
+{--<mark>}</mark>
+if you use a double dash you can toggle
+commenting by adding or removing closing
+brace after first double dash
+--}
+					</code></pre>
+				</section>
+					<section>
+						Literals
+						<!--<img src="./assets/syntaxliterals.png" />-->
+						<pre><code class="Elm" data-trim data-noescape>
+True  : Bool
+False : Bool
+
+42    : number -- can be Int or Float
+3.14  : Float
+
+'a'   : Char
+"abc" : String
+
+"""
+Mutliline string, useful for JSON
+or content with "quotation marks".
+"""
+</code></pre>
+					</section>
+					<section>
+						Conditionals
+						<!--<img src="./assets/syntaxconditionals.png" />-->
+						<pre><code class="Elm" data-trim data-noescape>
+if n > 80 then "Pass" else "Fail"
+
+if n == 100 then
+  "A+"
+else if n > 80 then
+  "B"
+else if > 70 then
+  "C"
+else
+  "Fail"
+					</code></pre>
+					</section>
+					<section>
+						Case Statements
+						<!--<img src="./assets/syntaxconditionals2.png" />-->
+						<pre><code class="Elm" data-trim data-noescape>
+case n of
+  0 -> 1
+  1 -> 2
+  _ -> 0
+
+case list of
+  hd::tl -> Just (hd, tl)
+  []     -> Nothing
+					</code></pre>
+					</section>
+					<section>
+						Lists
+						<!--<img src="./assets/syntaxlists.png" />-->
+						<pre><code class="Elm" data-trim data-noescape>
+[1..4]
+
+-- equals
+
+[1,2,3,4]
+
+-- equals
+
+1 :: [2,3,4]
+
+List.length [1..4]
+-- returns 4
+					</code></pre>
+					</section>
+					<section>
+						Let Expressions
+						<!--<img src="./assets/syntaxletexpressions.png" />-->
+						<pre><code class="Elm" data-trim data-noescape>
+let
+  ten =
+    5 + 5
+
+  thirty =
+    ten * 3
+in
+  ten * thirty
+					</code></pre>
+					</section>
+					<section>
+						Records
+						<!--<img src="./assets/syntaxRecords.png" />-->
+						<pre><code class="Elm" data-trim data-noescape>
+-- create a record
+point =
+  { x = 3, y = 4 }
+
+-- access a field
+point.x
+
+-- update a field
+{ point | x = point.x + 2 }
+					</code></pre>
+					</section>
+					<section>
+						Type Aliases
+						<!--<img src="./assets/syntaxtypealiases.png" />-->
+						<pre><code class="Elm" data-trim data-noescape>
+type alias Name = String
+type alias Age = Int
+
+info : (Name, Age)
+info =
+  ("Steve", 28)
+
+type alias Point = { x:Float, y:Float }
+
+origin : Point
+origin =
+  { x = 0, y = 0 }
+					</code></pre>
+					</section>
+					<section>
+						Math: Elm vs JS
+						<pre><code class="Elm" data-trim data-noescape>
+20 + 5 = 25 : number
+
+20 + 5.0 = 25 : Float
+
+100 / 2 = 50 : Float
+
+100 // 2 = 50 : Int
+
+1 / 2 = 0.5 : Float
+
+1 // 2 = 0 : Int
+
+5 `rem` 2 = 1 : number
+    </code></pre>
+					</section>
+					<section>
+						Functions
+						<pre><code class="Elm" data-trim data-noescape>
+add : number -> number -> number
+add num1 num2 = num1 + num2
+
+add5 : number -> number
+add5 = add 5
+
+
+add5 10
+--returns 15 : number
+	</code></pre>
+					</section>
+					<section>
+						Modules
+						<!--<img src="./assets/syntaxmodules.png" />-->
+						<pre><code class="Elm" data-trim data-noescape>
+module MyModule exposing (..)
+
+-- qualified imports
+import List      -- List.map, List.foldl
+import List as L -- L.map, L.foldl
+
+-- open imports
+import List exposing (..)  --map, foldl
+import List expsoing ( map, foldl )
+					</code></pre>
+					</section>
+					<section>
+						JavaScript Interop
+						<!--<img src="./assets/syntaxPorts.png" />-->
+						<pre><code class="Elm" style="font-size:22pt !important" data-trim data-noescape>
+-- incoming values
+port mapMoved : (GMPos -> msg) -> Sub msg
+
+-- outgoing values
+port moveMap : GMPos -> Cmd msg
+
+-- From JS, communicate through ports like this:
+-- send data into Elm
+instance.ports.mapMoved.send(newPos);
+
+--subscribe to data from Elm
+instance.ports.moveMap.subscribe(function(gmPos) {
+	-- do something...
+});
+					</code></pre>
+					</section>
+
+				</section>
+				<section>
+					<section>
+						<h2>The Elm Architecture</h2><img src="./assets/elm_logo.svg" style="height:200px; width:200px" /></section>
+					<section>
+						<h2>Html.App.beginnerProgram</h2>
+						<br/>
+						<p>model : model</p>
+						<p>view : model -> Html msg</p>
+						<p>update : msg -> model -> model</p>
+					</section>
+					<section>
+						<h2>Html.App.Program</h2>
+						<br/>
+						<p>init : (model, Cmd msg)</p>
+						<p>update : msg -> model -> (model, Cmd msg)</p>
+						<p>subscriptions : model -> Sub msg</p>
+						<p>view : model -> Html msg</p>
+					</section>
+					<section>
+						<h2>Demos</h2>
+					</section>
+				</section>
+				<section>
+					<h2>Links</h2>
+					<ul>
+						<li><a href="http://elm-lang.org/" target="_blank">http://elm-lang.org/</a></li>
+						<li><a href="http://elm-lang.org/community" target="_blank">http://elm-lang.org/community</a></li>
+						<li><a href="http://www.elmweekly.nl/" target="_blank">http://www.elmweekly.nl/</a></li>
+						<li><a href="https://www.brianthicks.com/" target="_blank">https://www.brianthicks.com/</a></li>
+						<li><a href="https://www.elm-tutorial.org/en/" target="_blank">https://www.elm-tutorial.org/en/</a></li>
+						<li><a href="https://github.com/sporto/hop" target="_blank">https://github.com/sporto/hop</a></li>
+
+						<br/>
+						<p>@JenningsTCJ</p>
+						<p>Slides: <a href="https://github.com/jenningstcj/IntroToElm" target="_blank">https://github.com/jenningstcj/IntroToElm</a></p>
+					</ul>
+				</section>
 		</div>
 	</div>
 
