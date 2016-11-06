@@ -3,12 +3,13 @@ module Main exposing (..)
 import Html exposing (..)
 import Html.App
 import Html.Attributes exposing (..)
-import Html.Events exposing (onClick)
+import Html.Events exposing (onClick, onInput)
+import String
 
 
 main =
     Html.App.beginnerProgram
-        { model = { statement = "Hello World", size = 14 }
+        { model = { statement = "Hello World" }
         , update = update
         , view = view
         }
@@ -20,10 +21,5 @@ update msg model =
 
 view model =
     div []
-        [ p [ size model.size ] [ text model.statement ]
+        [ p [] [ text model.statement ]
         ]
-
-
-size : Int -> Html.Attribute msg
-size num =
-    style [ ( "fontSize", (toString num) ++ "pt" ) ]
