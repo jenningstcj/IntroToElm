@@ -22,7 +22,7 @@ var _user$project$Main$update = F2(
 var _user$project$Main$main = {
 	main: _elm_lang$html$Html_App$beginnerProgram(
 		{
-			model: {statement: ''},
+			model: {statement: 'Hello World'},
 			update: _user$project$Main$update,
 			view: _user$project$Main$view
 		})
